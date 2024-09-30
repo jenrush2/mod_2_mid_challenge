@@ -1,0 +1,11 @@
+<h1 style="text-align: center"> <%= @employee.name %> </h1>
+
+<h3> Department: <%= @employee.department.name %> </h3>
+
+<h4> Tickets: </h5>
+<h6> Oldest Ticket: <%= @ordered_tickets[0].subject %> </h6> 
+<br>
+<h6> Other Tickets: </h6>
+<% @ordered_tickets.drop(1).each do |ticket| %>
+    <p> <%= ticket.subject %> <p>
+<%end%>
