@@ -44,6 +44,12 @@ RSpec.describe "Emplee show page" do
     
     end
 
-    xit "shows the oldest ticket listed separately" do
+    it "shows the oldest ticket listed separately" do
+        visit "/employees/#{@employee_4.id}"
+      
+        expect("Oldest Ticket: printers broken").to appear_before("Other Tickets:")
+        expect("Other Tickets:").to appear_before("chair broken")
+        expect("chair broken").to appear_before("hallway vandalized")
+        
     end
 end
