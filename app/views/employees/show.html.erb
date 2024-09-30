@@ -1,3 +1,8 @@
 <h1 style="text-align: center"> <%= @employee.name %> </h1>
 
 <h3> Department: <%= @employee.department.name %> </h3>
+
+<h5> Tickets: </h5>
+<% @ordered_tickets.each do |ticket| %>
+    <p> <%= ticket.subject %> <p>
+<%end%>
