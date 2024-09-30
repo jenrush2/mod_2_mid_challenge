@@ -1,0 +1,12 @@
+<h1 style = "text-align:center"> Departments </h1>
+
+<% @departments.each do |department| %>
+    <h2> Department: <%= department.name %> </h2>
+    <h4> Floor: <%= department.floor %> </h4>
+    <h4> Employees: </h4>
+
+    <% department.employees.each do |employee| %>
+        <p> <%= employee.name %> </p>
+    <% end %>
+
+<% end %>
