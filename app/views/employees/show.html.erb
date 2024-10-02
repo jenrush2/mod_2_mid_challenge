@@ -9,3 +9,10 @@
 <% @ordered_tickets.drop(1).each do |ticket| %>
     <p> <%= ticket.subject %> <p>
 <%end%>
+
+<h6> Add existing ticket to this employee: </h6>
+<%= form_with url: "/tickets/#{@employee.id}", method: :patch, data: {turbo:false} do |form| %>
+    <%= form.label :ticket_id, "Ticket Id" %>
+    <%= form.text_field :ticket_id %>
+    <%= form.submit "Add Ticket to Employee" %>
+<% end %>
