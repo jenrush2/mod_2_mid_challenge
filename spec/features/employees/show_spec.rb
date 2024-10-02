@@ -5,6 +5,17 @@
 # I also see the oldest ticket assigned to the employee listed 
 #separately.
 
+# As a user,
+# When I visit the employee show page,
+# I do not see any tickets listed that are not assigned to the employee
+# and I see a form to add a ticket to this employee.
+# When I fill in the form with the id of a ticket that already 
+# exists in the database and I click submit
+# Then I am redirected back to that employees show page
+# and I see the ticket's subject now listed.
+# (you do not have to test for sad path, for example if the id 
+# does not match an existing ticket.)
+
 require "rails_helper"
 
 RSpec.describe "Emplee show page" do 
@@ -32,7 +43,7 @@ RSpec.describe "Emplee show page" do
 
         expect(page).to have_content("Kamala Harris")
         expect(page).to have_content("Communications")
-        expect(page).to_not have_content("James Bond")
+        expect(page).to_not have_content("blood in hallway")
 
     end
 
@@ -41,6 +52,7 @@ RSpec.describe "Emplee show page" do
         
         expect("printers broken").to appear_before("chair broken")
         expect("chair broken").to appear_before("hallway vandalized")
+        expect(page).to_not have_content("James Bond")
     
     end
 
@@ -52,4 +64,29 @@ RSpec.describe "Emplee show page" do
         expect("chair broken").to appear_before("hallway vandalized")
         
     end
+
+    it "has a form to add a ticket" do
+        visit "/employees/#{@employee_4.id}"
+
+        expect(page).to have_field("ticket_id")
+        expect(page).to have_button("Add Ticket to Employee")
+    end
+
+    it "can add an existing ticket to the employee using the ticket id" do
+        visit "/employees/#{@employee_4.id}"
+
+        expect(page).to_not have_content("blood in hallway")
+        
+        id = Ticket.last.id
+
+        fill_in "Ticket Id", with: "#{id}"
+
+        click_on "Add Ticket to Employee"
+
+        expect(current_path).to eq("/employees/#{@employee_4.id}")
+
+        expect(page).to have_content("blood in hallway")
+
+    end
+
 end

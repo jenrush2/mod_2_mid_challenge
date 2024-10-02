@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   get "/departments", to: "departments#index"
   get "/employees/:employee_id", to: "employees#show"
 
+  patch "/tickets/:employee_id", to: "tickets#update"
+
 end
